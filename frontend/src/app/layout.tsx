@@ -8,7 +8,7 @@ import Input from "@/components/Input/Input";
 import { flex } from "../../styled-system/patterns";
 
 import { RiLoginBoxLine } from "react-icons/ri";
-import Button from "@/components/Button/Button";
+import { button } from "@/components/Button/button.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,28 +38,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={css({ bg: "background", h: "100vh", px: "4", py: "2" })}>
-        <header className={css({ w: "100%", p:"2" , mb: "8" })}>
+      <body className={css({ bg: "background", h: "100vh", w: "100%", px: "4", py: "2" })}>
+        <header className={css({ w: "100%", p: "2" })}>
           <div className={flex({
             justify: "space-between"
           })}>
             <h1 className={`${arima.className} ${css({ fontSize: '4xl', color: "#921A40" })}`}>
               myDictionary
             </h1>
-            <nav className={css({  })}>
-              <ul className={flex({align:"right"})}>
+            <nav className={css({})}>
+              <ul className={flex({ align: "right" })}>
                 <li>
-                  <div className={css({mr:"10"})}>
+                  <div className={css({ mr: "10" })}>
                     <Input />
                   </div>
                 </li>
                 <li>
-                  <Button variant="primary" >
-                    <div className={flex({align:"baseline"})}>
-                      <RiLoginBoxLine style={{marginRight:"5px", fontSize:"20px"}}/>
+                  <button className={button({ variant: "solid", size: "md" })} >
+                    <div className={flex({ align: "end" })}>
+                      <RiLoginBoxLine style={{ marginRight: "5px", fontSize: "20px" }} />
                       Login
                     </div>
-                  </Button>
+                  </button>
                 </li>
                 <li></li>
               </ul>
