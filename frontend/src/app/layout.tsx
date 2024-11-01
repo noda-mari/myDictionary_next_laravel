@@ -4,7 +4,7 @@ import "./globals.css";
 
 import { Arima } from 'next/font/google'
 import { css } from '../../styled-system/css'
-import Input from "@/components/Input/Input";
+import { Input } from "@/components/Input/Input";
 import { flex } from "../../styled-system/patterns";
 
 import { RiLoginBoxLine } from "react-icons/ri";
