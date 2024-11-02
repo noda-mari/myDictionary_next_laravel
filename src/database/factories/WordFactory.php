@@ -18,6 +18,7 @@ class WordFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => 1,
             'category_id' => $this->faker->numberBetween(1,10),
             'name'=> $this->faker->text(10),
             'meaning'=> $this->faker->text(20),

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('words', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
             $table->foreignId('category_id')->constrained()->onDelete('RESTRICT');
             $table->string('name')->unique();
             $table->string('meaning')->nullable();

@@ -11,6 +11,7 @@ class Word extends Model
 
     protected $fillable = [
         'name',
+        'user_id',
         'category_id',
         'meaning',
         'example_sentence',
@@ -21,8 +22,15 @@ class Word extends Model
         return $this->belongsTo(Category::class); 
     }
 
+    public function user() {
+
+        return $this->belongsTo(User::class); 
+    }
+
     public function likedByUsers()
     {
         return $this->belongsToMany(User::class, 'likes');
     }
+
+
 }
