@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Word;
 use Illuminate\Http\Request;
 
-class ApiWordController extends Controller
+class WordController extends Controller
 {
     /**
      * Display a listing of the resource.
