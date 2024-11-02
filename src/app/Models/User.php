@@ -45,4 +45,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function likedWords()
+    {
+        return $this->belongsToMany(Word::class, 'likes');
+    }
 }
