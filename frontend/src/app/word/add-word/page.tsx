@@ -1,4 +1,4 @@
-import { LiButton, TextButton } from '@/components/Button/Button'
+import { TextButton } from '@/components/Button/Button'
 import { LabelInput } from '@/components/Input/Input'
 import { MdOutlineTipsAndUpdates } from "react-icons/md"
 import { IoBookmarkOutline } from "react-icons/io5";
