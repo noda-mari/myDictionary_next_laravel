@@ -33,15 +33,22 @@ class WordController extends Controller
      */
     public function store(Request $request)
     {
-        $word = Word::create(attributes: $request->all());
-        return response()->json(
-            data: [
-                'message' => 'カテゴリーを作成しました',
-                'category' => $word
-            ],
-            status: 201
-        );
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'meaning' => 'nullable|string',
+        ]);
+        
+        $validated['user_id'] = 1; 
+
+        $word = Word::create($validated);
+
+        return response()->json([
+            'message' => '単語を登録しました',
+            'word' => $word
+        ], 201);
     }
+
 
     /**
      * Display the specified resource.

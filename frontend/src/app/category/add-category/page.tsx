@@ -22,14 +22,14 @@ const AddCategoryPage = () => {
   // カテゴリ一覧を取得
   const fetchCategories = async () => {
     try {
-      const res = await fetch('/api/categories') // Laravel 側のエンドポイントに合わせる
+      const res = await fetch('/api/categories')
       if (!res.ok) {
         throw new Error('カテゴリ取得に失敗しました')
       }
       const json = await res.json()
       console.log('status:', res.status)
       console.log('json:', json)
-      setCategories(json.categories) // 'data: { categories: [...] }' の構造に対応
+      setCategories(json.categories)
     } catch (err) {
       console.error(err)
       alert('カテゴリ一覧の取得に失敗しました')

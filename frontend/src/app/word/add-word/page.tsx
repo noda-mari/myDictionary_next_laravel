@@ -7,14 +7,31 @@ import { IoBookmarkOutline } from "react-icons/io5";
 import styles from './styles'
 import { button } from '@/components/Button/button.css';
 import { flex } from '../../../../styled-system/patterns';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 
 const AddWordPage = () => {
+
+  type Category = {
+    id: number
+    name: string
+  }
+
   const [word, setWord] = useState('')
-  const [category, setCategory] = useState('')
+  const [categories, setCategories] = useState<Category[]>([])
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null)
   const [description, setDescription] = useState('')
+
+  // カテゴリー一覧を取得
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const res = await fetch('/api/categories')
+      const json = await res.json()
+      setCategories(json.categories)
+    }
+    fetchCategories()
+  }, [])
 
   const handleSubmit = async () => {
     console.log('handleSubmit 実行')
@@ -26,9 +43,11 @@ const AddWordPage = () => {
         },
         body: JSON.stringify({
           name: word,
-          category,
-          description,
+          category_id: selectedCategoryId,
+          meaning: description,
+          // user_id: 1,
         }),
+
       })
 
       if (!res.ok) {
@@ -37,7 +56,7 @@ const AddWordPage = () => {
 
       alert('単語を登録しました！')
       setWord('')
-      setCategory('')
+      setSelectedCategoryId(null)
       setDescription('')
     } catch (err) {
       console.error(err)
@@ -56,15 +75,21 @@ const AddWordPage = () => {
             value={word}
             onChange={(e) => setWord(e.target.value)}
           />
-           <LabelInput
-            label='カテゴリー'
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          />
+          <select
+            value={selectedCategoryId ?? ''}
+            onChange={(e) => setSelectedCategoryId(Number(e.target.value))}
+          >
+            <option value="" disabled>カテゴリーを選択</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className={styles.inputRight}>
           <button className={button({ variant: "solidSoft", size: "md" })}>
-            <div className={flex({ align:"end", gap:"4"})}>
+            <div className={flex({ align: "end", gap: "4" })}>
               <IoBookmarkOutline className={styles.bookMarkIcon} />
               しおり
             </div>
@@ -83,14 +108,14 @@ const AddWordPage = () => {
 
       <div className={styles.button}>
         <button className={button({ variant: "solidSoft", size: "md" })}
-        onClick={handleSubmit}
+          onClick={handleSubmit}
         >
           登録
         </button>
       </div>
     </div>
   )
-  
+
 }
 
 export default AddWordPage
