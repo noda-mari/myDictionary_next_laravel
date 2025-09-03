@@ -30,15 +30,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create(attributes: $request->all());
-        return response()->json(
-            data: [
-                'message' => 'カテゴリーを作成しました',
-                'category' => $category
-            ],
-            status: 201
-        );
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $data['user_id'] = 1; 
+
+        $category = Category::create($data);
+
+        return response()->json([
+            'message' => 'カテゴリーを作成しました',
+            'category' => $category,
+        ], 201);
     }
+
 
     /**
      * Display the specified resource.
@@ -47,7 +52,7 @@ class CategoryController extends Controller
     {
         $category = Category::with(relations: 'words')->findOrFail(id: $id);
 
-        return response()->json(data: $category);    
+        return response()->json(data: $category);
     }
 
     /**
@@ -70,7 +75,7 @@ class CategoryController extends Controller
 
         $category = Category::where(column: 'id', operator: $id)->update(attributes: $update);
 
-        if($category){
+        if ($category) {
             return response()->json(
                 data: [
                     'message' => 'カテゴリ名ーを更新しました',
@@ -78,7 +83,7 @@ class CategoryController extends Controller
                 ],
                 status: 200
             );
-        }else{
+        } else {
             return response()->json(
                 data: [
                     'message' => '該当するカテゴリーがありません'
